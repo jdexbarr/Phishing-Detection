@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PhishGuard ML {% endblock %}</title>
+
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+      <!-- Tailwind CSS-->
+    <script src="https://cdn.tailwindcss.com"></script>
+      <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: {
+              DEFAULT: 'hsl(222, 47%, 11%)',
+              light: 'hsl(217, 33%, 17%)',
+            },
+            foreground: 'hsl(210, 40%, 98%)',
+            primary: {
+              DEFAULT: 'hsl(199, 89%, 48%)',
+              foreground: 'hsl(222, 47%, 11%)',
+              glow: 'hsl(189, 94%, 43%)',
+            },
+            success: {
+              DEFAULT: 'hsl(160, 84%, 39%)',
+              foreground: 'hsl(222, 47%, 11%)',
+            },
+            destructive: {
+              DEFAULT: 'hsl(0, 84%, 60%)',
+              foreground: 'hsl(210, 40%, 98%)',
+            },
+            muted: {
+              DEFAULT: 'hsl(217, 33%, 22%)',
+              foreground: 'hsl(215, 20%, 65%)',
+            },
+            border: 'hsl(217, 33%, 22%)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['IBM Plex Mono', 'monospace'],
+          },
+          keyframes: {
+            'pulse-glow': {
+              '0%, 100%': { boxShadow: '0 0 20px hsl(199 89% 48% / 0.3)' },
+              '50%': { boxShadow: '0 0 40px hsl(199 89% 48% / 0.6)' },
+            },
+            'scan-line': {
+              '0%': { transform: 'translateY(-100%)' },
+              '100%': { transform: 'translateY(100%)' },
+            },
+          },
+          animation: {
+            'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+            'scan': 'scan-line 2s ease-in-out infinite',
+          },
+        },
+      },
+      plugins: [],
+    }
+  </script>
+
+  <style>
+    body {
+      background: linear-gradient(180deg, hsl(222, 47%, 11%), hsl(217, 33%, 17%));
+      min-height: 100vh;
+    }
+
+    .gradient-primary{
+      background: linear-gradient(135deg, hsl(199, 89%, 48%), hsl(189, 94%, 43%));
+    }
+
+    .gradient-threat {
+      background: linear-gradient(135deg, hsl(0, 84%, 60%), hsl(0, 72%, 51%));
+    }
+
+    .gradient-safe{
+      background: linear-gradient(135deg, hsl(160, 84%, 39%), hsl(142, 76%, 36%));
+    }
+
+    .glow-primary{
+      box-shadow: 0 0 40px hsl(199, 89%, 48% /0.3);
+    }
+  </style>
+
+    {# <link href="{% static 'css/styles.css' %}" rel="stylesheet"> #}
+
+    {% block extra_css %}{% endblock %}
+    
+</head>
+<body class="text-foreground font-sans">
+    {% block content %}{% endblock %}
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

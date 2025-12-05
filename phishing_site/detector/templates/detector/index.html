@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="min-h-screen">
+    <!-- HEADER -->
+    <header class="border-b border-border bg-background-light/50 backdrop-blur-sm sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-primary/10 rounded-lg glow-primary">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-foreground">PhishGuard ML</h1>
+              <p class="text-xs text-muted-foreground font-mono">ML-powered email security</p>
+            </div>
+          </div>
+          <div class="hidden md:flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-lg border border-primary/20">
+            <div class="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+            <span class="text-sm font-mono text-primary">Active System</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-12">
+
+      <!-- Hero Section -->
+      <section class="text-center space-y-4 py-8">
+        <div class="inline-block px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
+          <span class="text-sm font-mono text-primary">ML Phishing detection</span>
+        </div>
+        <h2 class="text-6xl md:text-6xl font-bold text-foreground">
+          Detection of Phishing and Spam Emails
+          <span class="block text-primary mt-2">Instantly</span>
+        </h2>
+        <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+          ML-powered email analysis to protect from phishing attacks
+        </p>
+      </section>
+    
+      <!-- Stats grid -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 bg-background-light border border-border rounded-lg hover:border-primary transition-colors">
+          <div class="flex items-start justify-between">
+            <div class="space-y-2">
+              <p class="text-sm text-muted-foreground font-mono">Emails analyzed</p>
+              <p class="text-3xl font-bold text-foreground">24k</p>
+              <p class="text-xs text-primary font-mono">+12% this month</p>
+            </div>
+            <div class="p-3 bg-primary/10 rounded-lg">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 bg-background-light border border-border rounded-lg hover:border-primary transition-colors">
+          <div class="space-y-2">
+            <p class="text-sm text-muted-foreground font-mono">Detection Rate</p>
+            <p class="text-3xl font-bold text-foreground">97.2%</p>
+            <p class="text-xs text-muted-foreground font-mono">High accuracy</p>
+          </div>
+        </div>
+
+        <div class="p-6 bg-background-light border border-border rounded-lg hover:border-primary transition-colors">
+          <div class="space-y-2">
+            <p class="text-sm text-muted-foreground font-mono">Model</p>
+            <p class="text-xl font-bold text-foreground">Random Forest</p>
+            <p class="text-xs text-muted-foreground font-mono">Best F1-score in evaluation process</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scanner and result -->
+      <section class="grid gap-8 md:grid-cols-[2fr,1.6fr] items-start">
+        <!-- Scanner -->
+        <div class="bg-background-light border border-border rounded-lg p-8">
+          <h3 class="text-2xl font-bold mb-6 text-foreground">Email Scanner</h3>
+          <form method="POST" class="space-y-4">
+            {% csrf_token %}
+
+
+            <!-- Sender -->
+            <div>
+              <label class="block mb-1 text-sm font-medium text-foreground">
+                From
+              </label>
+              <input
+                type="text"
+                name="sender"
+                class="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                placeholder="no-reply@secure-login.com"
+                value="{{ sender|default:'' }}"
+              />
+            </div>
+
+            <!-- Subject -->
+            <div>
+              <label class="block mb-1 text-sm font-medium text-foreground">
+                Subject
+              </label>
+              <input
+                type="text"
+                name="subject"
+                class="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                placeholder="Account suspended"
+                value="{{ subject|default:'' }}"
+              />
+            </div>
+
+            <!-- Body -->
+            <div>
+              <label class="block mb-1 text-sm font-medium text-foreground">
+                Email Body
+              </label>
+              <textarea 
+                name="body" 
+                rows="8"
+                class="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary font-mono text-sm resize-none"
+                placeholder="Paste the email content here..."
+              >{{ body|default:'' }}</textarea>
+            </div>
+
+            <button 
+              type="submit"
+              class="w-full gradient-primary text-primary-foreground font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity glow-primary">
+              Analyze Email
+            </button>
+          </form>
+        </div>
+
+        <!-- Result -->
+        <div class="space-y-4">
+          {% if prediction %}
+          <div class="p-6 rounded-lg border-2
+                      {% if prediction == 'Phishing' %}
+                        border-destructive bg-background
+                      {% else %}
+                        border-success bg-background
+                      {% endif %}">
+            <div class="flex items-center gap-3 mb-4">
+              {% if prediction == 'Phishing' %}
+              <div class="p-2 bg-destructive/10 rounded-lg">
+                <svg class="w-6 h-6 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold text-destructive">Phishing or Spam Detected</h4>
+                <p class="text-sm text-muted-foreground">Probability: {{ probability }}%</p>
+              </div>
+              {% else %}
+              <div class="p-2 bg-success/10 rounded-lg">
+                <svg class="w-6 h-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold text-success">Safe Email</h4>
+                <p class="text-sm text-muted-foreground">Probability of Phishing: {{ probability }}%</p>
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Probability bar -->
+            <div class="space-y-2 mb-4">
+              <div class="flex justify-between text-xs font-mono text-muted-foreground">
+                <span>Analysis</span>
+                <span class="font-semibold">{{ probability }}%</span>
+              </div>
+              <div class="h-2 bg-background-light rounded-full overflow-hidden">
+                <div
+                  class="h-full transition-all duration-700
+                  {% if prediction == 'Phishing' %}
+                    bg-destructive
+                  {% else %}
+                    bg-success
+                  {% endif %}"
+                  style="width: {{ probability }}%;"
+                ></div>
+              </div>
+            </div>
+
+            {% if threats %}
+            <div class="space-y-2 pt-4 border-t border-border">
+              <h4 class="font-semibold text-destructive text-sm">
+                Detected Threats:
+              </h4>
+              <ul class="space-y-1">
+                {% for t in threats %}
+                <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                  <span class="w-1.5 h-1.5 bg-destructive rounded-full mt-1"></span>
+                  <span>
+                    {{ t.type }}{% if t.detail %}: {{ t.detail }}{% endif %}
+                  </span>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+          </div>
+          {% else %}
+          <div class="p-6 bg-background-light border border-border rounded-lg text-center text-sm text-muted-foreground">
+            Paste an email on the left and run the analysis to see the result here.
+          </div>
+          {% endif %}
+        </div>
+      </section>           
+    </main>
+
+    <footer class="border-t border-border bg-background-light/50 mt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="text-center text-muted-foreground">
+          <p class="font-mono text-sm">
+            © 2025 PhishGuard. Powered by Machine Learning.
+          </p>
+        </div>
+      </div>
+    </footer>
+</div>
+
+{% endblock %}
